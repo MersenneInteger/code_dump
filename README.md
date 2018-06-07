@@ -1,2 +1,2 @@
 # pyDump
-repository to store python tutorial code and random little programs
+repository to store random little programs as I learn Python
