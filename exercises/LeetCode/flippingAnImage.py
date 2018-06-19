@@ -3,7 +3,10 @@ class Solution(object):
         for i in range(len(A)):
             for j in range(len(A[i])):
                 A[i][j] = 1 if A[i][j] == 0 else 0
-            A[i].reverse()
+            for k, l in zip(range(len(A[i])-1, -1, -1), range(len(A[i]))):
+                temp = A[i][k]
+                A[i][k] = A[i][l]
+                A[i][l] = temp
         return A
 
 exercise = Solution()
