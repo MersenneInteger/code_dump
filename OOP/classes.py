@@ -42,3 +42,22 @@ otherObject.changeVar('error')
 
 thirdObject = myClass(42)
 thirdObject.printVar()
+print()
+
+class InstanceCounter(object):
+
+    #class attribute
+    counter = 0
+
+    def __init__(self):
+        InstanceCounter.counter += 1
+
+    def printCounter():
+        print('Current instances: {}'.format(InstanceCounter.counter))
+
+obj1 = InstanceCounter()
+InstanceCounter.printCounter()
+obj2 = InstanceCounter()
+obj3 = InstanceCounter()
+InstanceCounter.printCounter()
+
