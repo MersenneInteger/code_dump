@@ -29,6 +29,7 @@ snakePos = [100, 50]
 snakeBody = [[100,50],[90,50],[80,50]]
 foodPos = [random.randrange(1, 72)*10, random.randrange(1,46)*10]
 foodSpawn = True
+obstaclePos = [random.randrange(1, 60)*10, random.randrange(1, 46)*10]
 
 direction = 'RIGHT'
 newDirection = direction
@@ -102,7 +103,7 @@ def changeDirection():
 
 def changeSnakePos():
     
-    global snakePos, snakeBody, foodPos, foodSpawn, score, fpsTick, x, y
+    global snakePos, snakeBody, foodPos, foodSpawn, score, fpsTick, x, y, obstaclePos
 
     #snake body
     snakeBody.insert(x, list(snakePos))
@@ -110,6 +111,7 @@ def changeSnakePos():
         foodSpawn = False
         score += 10
         fpsTick += 1
+        spawnObstacles(1)
     else:
         snakeBody.pop()
     if not foodSpawn:
@@ -119,14 +121,28 @@ def changeSnakePos():
     for pos in snakeBody:
         pygame.draw.rect(gameDisplay,green,pygame.Rect(pos[x],pos[y],10,10))
     pygame.draw.rect(gameDisplay,red,pygame.Rect(foodPos[x],foodPos[y],10,10)) 
+
     if snakePos[x] >= 720 or snakePos[x] <= 0:
         gameOver()
     if snakePos[y] >= 460 or snakePos[y] <= 0:
         gameOver()
-        
+    
+    spawnObstacles()
     for pos in snakeBody[y:]:
         if snakePos[x] == pos and snakePos[y] == pos:
             gameOver()
+        if snakePos[x] == obstaclePos[x] and snakePos[y] == obstaclePos[y]:
+            gameOver()
+
+def spawnObstacles(spawnNew=0):
+
+    global x, y, foodPos, obstaclePos
+
+    if spawnNew:
+        obstaclePos = [random.randrange(1, 60)*10, random.randrange(1, 46)*10]
+        if obstaclePos[x] == foodPos[x] and obstaclePos[y] == foodPos[y]:
+            obstaclePos = [random.randrange(1, 60)*10, random.randrange(1, 46)*10]
+    pygame.draw.rect(gameDisplay,white,pygame.Rect(obstaclePos[x],obstaclePos[y],20,20))
 
 #main
 while 1:
