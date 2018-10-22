@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -185,6 +186,111 @@ namespace Classes
         }
     }
 
+    public class Animal
+    {
+        private int numOfLegs;
+        private bool hasTail;
+
+        public Animal()
+        {
+
+        }
+
+        public Animal(int numOfLegs, bool hasTail)
+        {
+            this.numOfLegs = numOfLegs;
+            this.hasTail = hasTail;
+        }
+
+        public void setNumOfLegs(int n)
+        {
+            this.numOfLegs = n;
+        }
+
+        public int getNumOfLegs()
+        {
+            return this.numOfLegs;
+        }
+
+        public void setHasTail(bool hasTail)
+        {
+            this.hasTail = hasTail;
+        }
+
+        public bool getHasTail()
+        {
+            return this.hasTail;
+        }
+    }
+
+    public class Dog : Animal
+    {
+        private bool hasSpots;
+
+        public Dog()
+        {
+
+        }
+
+        public Dog(int numOfLegs, bool hasTail, bool hasSpots)
+            : base(numOfLegs, hasTail)
+        {
+            this.hasSpots = hasSpots;
+        }
+
+        public bool getHasSpots()
+        {
+            return this.hasSpots;
+        }
+    }
+
+    //method overriding example
+/*
+    public class Shape
+    {
+        public int Width { get; set; }
+        public int Height { get; set; }
+
+        public virtual void Draw();
+    }
+*/
+    //abstract version of Shape
+    public abstract class Shape
+    {
+        public int Width { get; set; }
+        public int Height { get; set; }
+
+        public abstract void Draw();
+    }
+
+    public class Circle : Shape
+    {
+        public override void Draw()
+        {
+            Console.WriteLine("Drawing a circle");
+            //base.Draw()
+        }
+    }
+
+    public class Rectangle : Shape
+    {
+        public override void Draw()
+        {
+            Console.WriteLine("Drawing a rectangle");
+        }
+    }
+
+    public class Canvas
+    {
+        public void DrawShapes(List<Shape> shapes)
+        {
+            foreach(var shape in shapes)
+            {
+                shape.Draw();
+            }
+        }
+    }
+
     class Program
     {
         static void Main(string[] args)
@@ -233,8 +339,41 @@ namespace Classes
             dbm.Migrate();
             installer.Install();
 
-                
+            Dog spot = new Dog(4, true, false);
+            Console.WriteLine(spot.getNumOfLegs());
+            Console.WriteLine(spot.getHasTail());
+            Console.WriteLine(spot.getHasSpots());
             
+            Dog fifi = new Dog();
+            Animal newDog = fifi;
+
+            Dog fifiClone = (Dog)newDog;
+            fifiClone.setNumOfLegs(3);
+            if (fifiClone is Dog)
+                Console.WriteLine("fifi # of legs: " + fifiClone.getNumOfLegs());
+            //as keyword
+            Dog harv = newDog as Dog;
+            if (harv != null)
+                Console.WriteLine("successful cast");
+            
+            //boxing unboxing
+            var list = new ArrayList();
+            list.Add(1);
+            list.Add("Mosh");
+            list.Add(DateTime.Today);
+            
+           // var genList = new List<int>();
+           // genList.Add("Mosh");
+           // Console.WriteLine(genList[0]);
+
+            //method overriding
+            var shapes = new List<Shape>();
+            shapes.Add(new Circle());
+            shapes.Add(new Rectangle());
+
+            var canvas = new Canvas();
+            canvas.DrawShapes(shapes);
+
         }//end of main
     }//end of class
 }//end of namespace
