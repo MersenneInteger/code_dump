@@ -1,4 +1,6 @@
 #
+import sys
+
 gameMap =  [[' ', ' ', ' '],
             [' ', ' ', ' '],
             [' ', ' ', ' ']]
@@ -45,7 +47,7 @@ def checkVertical(c):
     if 'x' in col and 'o' not in col: return 1
     if 'o' in col and 'x' not in col: return 2
 
-def checkDiagnol():
+def checkDiagonal():
 
     global gameMap
     if gameMap[1][1] == 'x':
@@ -56,16 +58,48 @@ def checkDiagnol():
             return 2
     return 0
 
+def playerAction(player):
+
+    move = input()
+    row = int(move[0])
+    col = int(move[1])
+    validMove = makeMove(player, row, col)
+    printGameMap()
+    h = checkHorizontal(row)
+    v = checkVertical(col)
+    d = checkDiagonal()
+    gameOver = checkGameOver(h, v, d)
+    return validMove, gameOver
+
 def checkGameOver(h, v, d):
     
+    global gameMap
+    spacesLeft = 0
+
     if h == 1 or v == 1 or d == 1:
         print('Player One wins')
         return True
     if h == 2 or v == 2 or d == 2:
         print('Player Two wins')
         return True
+
+    for row in gameMap:
+        if ' ' in row:
+            spacesLeft += 1
+    if spacesLeft <= 1:
+        print('Draw!')
+        return True
     return False
 
+def startGameOver():
+    
+    clearGameMap()
+    print('Play again(yes/no)?')
+    answer = input()
+    if answer != 'yes':
+        sys.exit()
+    return answer
+#main
 answer = 'yes'
 validMove = False
 h, v, d = 0, 0, 0
@@ -78,41 +112,19 @@ while answer == 'yes':
 
     while(not validMove):
         print('Player 1 enter your move : ')
-        p1Move = input()
-        p1Row = int(p1Move[0])
-        p1Col = int(p1Move[1])
-        validMove = makeMove(player1, p1Row, p1Col)
-    
-    validMove = False
-    printGameMap()
-    h = checkHorizontal(p1Row)
-    v = checkVertical(p1Col)
-    d = checkDiagnol()
-    gameOver = checkGameOver(h, v, d)
+        validMove, gameOver = playerAction(player1)
 
+    validMove = False
     if gameOver:
-        clearGameMap()
-        print('Play again(yes/no)?')
-        answer = input()
+        answer = startGameOver()
         continue
 
     while(not validMove):
         print('Player 2 enter your move : ')
-        p2Move = input()
-        p2Row = int(p2Move[0])
-        p2Col = int(p2Move[1])
-        validMove = makeMove(player2, p2Row, p2Col)
-    
-    validMove = False
-    printGameMap()
-    h = checkHorizontal(p2Row)
-    v = checkVertical(p2Col)
-    d = checkDiagnol()
-    gameOver = checkGameOver(h, v, d)
+        validMove, gameOver = playerAction(player2)
 
+    validMove = False
     if gameOver:
-        clearGameMap()
-        print('Play again(yes/no)?')
-        answer = input()
+        answer = startGameOver()
         continue
 #end game        
