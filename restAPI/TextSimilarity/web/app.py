@@ -30,32 +30,29 @@ def countTokens(usr):
     tokens = users.find({'Username':usr})[0]['Tokens']
     return tokens
 
+def generateRetMap(status, msg):
+    
+    retMap = { 'Status': status,
+              'Message': msg
+    }
+    return retMap
+
 class Register(Resource):
     
     def post(self):
         
         postData = request.get_json(force=True)
         if 'Username' not in postData or 'Password' not in postData:
-            retMap = {
-                'Status': 301,
-                'Message': 'Username or password missing'
-            }
-            return jsonify(retMap)
+            return jsonify(generateRetMap(301, 'Username or password missing'))
+
         username = postData['Username']
         password = postData['Password']
         if userExists(username):
-            retMap = {
-                'Status': 301,
-                'Message': 'Invalid Username'
-            }
-            return jsonify(retMap)
+            return jsonify(generateRetMap(301, 'Invalid Username'))
+
         hashedPswd = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
         users.insert({'Username': username, 'Password': hashedPswd, 'Tokens': 6 })
-        retMap = {
-            'Status': 200,
-            'Message': 'Registration Successful'
-        }
-        return jsonify(retMap)
+        return jsonify(generateRetMap(200, 'Registration Successful'))
 
 class Detect(Resource):
 
@@ -63,11 +60,7 @@ class Detect(Resource):
         
         postData = request.get_json(force=True)
         if 'Username' not in postData or 'Password' not in postData:
-            retMap = {
-                'Status': 301,
-                'Message': 'Username or password invalid'
-            }
-            return jsonify(retMap)
+            return jsonify(generateRetMap(301, 'Username or password missing'))
 
         username = postData['Username']
         password = postData['Password']
@@ -75,27 +68,14 @@ class Detect(Resource):
         text2 = postData['Text2']
 
         if not userExists(username):
-            retMap = {
-                'Status': 301,
-                'Message': 'Invalid username'
-            }
-            return jsonify(retMap)
-
+            return jsonify(generateRetMap(301, 'Invalid username'))
         correctPswd = verifyPswd(username, password)
         if not correctPswd:
-            retMap = {
-                'Status': 302,
-                'Message': 'Invalid password'
-            }
-            return jsonify(retMap)
+            return jsonify(generateRetMap(302, 'Invalid password'))
 
         numTokens = countTokens(username)
         if numTokens <= 0:
-            retMap = {
-                'Status': 303,
-                'Message': 'Out of tokens, please refill'
-            }
-            return jsonify(retMap)
+            return jsonify(generateRetMap(303, 'Out of tokens, please refill'))
 
         nlp = spacy.load('en_core_web_sm')
         text1 = nlp(text1)
@@ -116,35 +96,21 @@ class Refill(Resource):
         
         postData = request.get_json(force=True)
         if 'Username' not in postData or 'Password' not in postData:
-            retMap = {
-                'Status': 301,
-                'Message': 'Invalid username or password'
-            }
-            return jsonify(retMap)
+            return jsonify(generateRetMap(301, 'Username or password missing'))
 
         username = postData['Username']
         password = postData['Password']
         refillAmount = postData['Refill']
         if not userExists(username):
-            retMap = {
-                'Status': 301,
-                'Message': 'Invalid username'
-            }
-            return jsonify(retMap)
+            return jsonify(generateRetMap(301, 'Invalid Username'))
+
         correctPswd = verifyPswd(username, password)
         if not correctPswd:
-            retMap = {
-                'Status': 302,
-                'Message': 'Invalid password'
-            }
-            return jsonify(retMap)
+            return jsonify(generateRetMap(302, 'Invalid Password'))
+
         currTokens = countTokens(username)
         users.update({'Username': username},{'$set':{'Tokens':currTokens + refillAmount}})
-        retMap = {
-            'Status': 200,
-            'Message': 'Tokens successfully refilled'
-        }
-        return jsonify(retMap)
+        return jsonify(generateRetMap(200, 'Tokens successfully refilled'))
         
 api.add_resource(Register, '/register')
 api.add_resource(Detect, '/detect')
