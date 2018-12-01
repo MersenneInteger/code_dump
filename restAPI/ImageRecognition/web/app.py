@@ -47,28 +47,16 @@ class Register(Resource):
         
         postData = request.get_json(force=True)
         if 'Username' not in postData or 'Password' not in postData:
-            retMap = {
-                'Status': 301,
-                'Message': 'Invalid username or password'
-            }
-            return jsonify(retMap)
+            return jsonify(generateRetMap(301, 'Invalid username or password'))
 
         username = postData['Username']
         password = postData['Password']
         if userExists(username):
-            retMap = {
-                'Status': 301,
-                'Message': 'User already exists'
-            }
-            return jsonify(retMap)
+            return jsonify(generateRetMap(301, 'User already exists'))
 
         hashedPswd = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
         users.insert({'Username':username,'Password':hashedPswd,'Tokens':5})
-        retMap = {
-            'Status': 200,
-            'Message': 'Registration successful'
-        }
-        return jsonify(retMap)
+        return jsonify(generateRetMap(200, 'Registration successful'))
 
 class Classify(Resource):
     
@@ -76,22 +64,14 @@ class Classify(Resource):
         
         postData = request.get_json(force=True)
         if 'Username' not in postData or 'Password' not in postData:
-            retMap = {
-                'Status': 301,
-                'Message': 'Invalid username or password'
-            }
-            return jsonify(retMap)
+            return jsonify(generateRetMap(301, 'Invalid username or password'))
 
         username = postData['Username']
         password = postData['Password']
         url = postData['URL']
         correctPswd = verifyPassword(username, password)
         if not correctPswd:
-            retMap = {
-                'Status': 301,
-                'Message': 'Password invalid'
-            }
-            return jsonify(retMap)
+            return jsonify(generateRetMap(301, 'Invalid password'))
         
         numTokens = users.find({'Username':username})[0]['Tokens']
         if numTokens <= 0:
@@ -116,22 +96,15 @@ class Refill(Resource):
         
         postData = request.get_json(force=True)
         if 'Username' not in postData or 'Password' not in postData:
-            retMap = {
-                'Status': 301,
-                'Message': 'Invalid username or password'
-            }
-            return jsonify(retMap)
+            return jsonify(generateRetMap(301, 'Invalid username or password'))
 
         username = postData['Username']
         password = postData['Password']
         tokenAmount = postData['Amount']
         correctPswd = verifyPassword(username, password)
         if not correctPswd:
-            retMap = {
-                'Status': 301,
-                'Message': 'Password invalid'
-            }
-            return jsonify(retMap)
+            return jsonify(generateRetMap(301, 'Invalid password'))
+
         currTokens = users.find({'Username':username})[0]['Tokens']
         users.update({'Username':username},{'$set':{'Tokens':tokenAmount+currTokens}})
         return jsonify(generateRetMap(200, 'Tokens Refilled'))
