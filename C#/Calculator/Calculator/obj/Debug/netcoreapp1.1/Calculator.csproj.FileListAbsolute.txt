@@ -1,0 +1,9 @@
+c:\users\carlyle\documents\visual studio 2017\Projects\Calculator\Calculator\bin\Debug\netcoreapp1.1\Calculator.deps.json
+c:\users\carlyle\documents\visual studio 2017\Projects\Calculator\Calculator\bin\Debug\netcoreapp1.1\Calculator.runtimeconfig.json
+c:\users\carlyle\documents\visual studio 2017\Projects\Calculator\Calculator\bin\Debug\netcoreapp1.1\Calculator.runtimeconfig.dev.json
+c:\users\carlyle\documents\visual studio 2017\Projects\Calculator\Calculator\bin\Debug\netcoreapp1.1\Calculator.dll
+c:\users\carlyle\documents\visual studio 2017\Projects\Calculator\Calculator\bin\Debug\netcoreapp1.1\Calculator.pdb
+c:\users\carlyle\documents\visual studio 2017\Projects\Calculator\Calculator\obj\Debug\netcoreapp1.1\Calculator.csprojResolveAssemblyReference.cache
+c:\users\carlyle\documents\visual studio 2017\Projects\Calculator\Calculator\obj\Debug\netcoreapp1.1\Calculator.AssemblyInfo.cs
+c:\users\carlyle\documents\visual studio 2017\Projects\Calculator\Calculator\obj\Debug\netcoreapp1.1\Calculator.dll
+c:\users\carlyle\documents\visual studio 2017\Projects\Calculator\Calculator\obj\Debug\netcoreapp1.1\Calculator.pdb
