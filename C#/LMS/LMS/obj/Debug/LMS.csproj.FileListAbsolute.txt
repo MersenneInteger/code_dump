@@ -1,0 +1,12 @@
+D:\C#\Basics\LMS\LMS\obj\Debug\LMS.csprojAssemblyReference.cache
+D:\C#\Basics\LMS\LMS\obj\Debug\LMS.csproj.CoreCompileInputs.cache
+D:\C#\Basics\LMS\LMS\bin\Debug\LMS.exe.config
+D:\C#\Basics\LMS\LMS\bin\Debug\LMS.exe
+D:\C#\Basics\LMS\LMS\bin\Debug\LMS.pdb
+D:\C#\Basics\LMS\LMS\bin\Debug\Newtonsoft.Json.dll
+D:\C#\Basics\LMS\LMS\bin\Debug\Newtonsoft.Json.Schema.dll
+D:\C#\Basics\LMS\LMS\bin\Debug\Newtonsoft.Json.xml
+D:\C#\Basics\LMS\LMS\bin\Debug\Newtonsoft.Json.Schema.xml
+D:\C#\Basics\LMS\LMS\obj\Debug\LMS.csproj.CopyComplete
+D:\C#\Basics\LMS\LMS\obj\Debug\LMS.exe
+D:\C#\Basics\LMS\LMS\obj\Debug\LMS.pdb
