@@ -11,12 +11,13 @@ namespace LMS
         static void Main(string[] args)
         {
             string continueOperations = "yes";
-
+            LibraryDatabase libraryDB = new LibraryDatabase();
+            Console.WriteLine(Environment.CurrentDirectory);
             //load library from JSON file
 
             while(continueOperations.Equals("yes", StringComparison.OrdinalIgnoreCase))
             {
-
+                libraryDB.LoadLibrary();
                 //prompt login or signup
 
                 //prompt available operations:

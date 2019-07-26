@@ -12,6 +12,7 @@ namespace LMS
         private uint NumOfBooksCheckedOut = 0;
         private uint NumOfBooksOverdue = 0;
         private List<Book> BooksCheckedOut = new List<Book>();
+        private List<Book> OverdueBooks = new List<Book>();
 
         public Student(){}
 
@@ -22,6 +23,12 @@ namespace LMS
             this.Name = Name;
             this.Id = Id;
         }
+
+        public string GetName()
+        {
+            return Name;
+        }
+
         public string GetUsername()
         {
             return Username;
@@ -43,6 +50,11 @@ namespace LMS
             return NumOfBooksOverdue;
         }
 
+        public List<Book> GetOverdueBooks()
+        {
+            return OverdueBooks;
+        }
+
         public void CheckOutBook(Book book)
         {
             NumOfBooksCheckedOut++;
@@ -55,6 +67,12 @@ namespace LMS
             {
                 NumOfBooksCheckedOut--;
                 BooksCheckedOut.Remove(book);
+
+                if(OverdueBooks.Contains(book))
+                {
+                    OverdueBooks.Remove(book);
+                    NumOfBooksOverdue--;
+                }
             }
             else
                 Console.WriteLine("No books checked out");
@@ -62,18 +80,19 @@ namespace LMS
 
         public void CheckIfStudentHasBooksOverdue()
         {
-            string overdueBooks = "";
+            string overdueBooksInfo = "";
 
             foreach(var book in BooksCheckedOut)
             {
                 if(book.CheckIfBookIsOverdue())
                 {
                     NumOfBooksOverdue++;
-                    overdueBooks += book.GetInfo();
+                    overdueBooksInfo += book.GetInfo();
+                    OverdueBooks.Add(book);
                 }
             }
             if (NumOfBooksOverdue > 0)
-                Console.WriteLine(overdueBooks);
+                Console.WriteLine(overdueBooksInfo);
         }
     }
 }

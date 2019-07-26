@@ -1,0 +1,12 @@
+{
+	"book1":{
+	  "Title": "Spring Snow",
+	  "Author": "Yukio Mishima",
+	  "CheckedOut": false
+  },
+	"book2":{
+	  "Title": "No Longer Human",
+	  "Author": "Osamu Dazai",
+	  "CheckedOut": false
+	}
+}

@@ -31,6 +31,11 @@ namespace LMS
             return Author;
         }
 
+        public string GetDuedate()
+        {
+            return string.Format("{0}/{1}/{2}", DueDate.Month, DueDate.Day, DueDate.Year);
+        }
+
         public void CheckOutBook()
         {
             CheckedOut = true;

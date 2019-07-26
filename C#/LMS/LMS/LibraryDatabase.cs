@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using Newtonsoft.Json;
 
 namespace LMS
@@ -9,12 +10,20 @@ namespace LMS
         private List<Student> StudentDatabase = new List<Student>();
         private List<Book> BookDatabase = new List<Book>();
 
-        private void LoadLibrary()
+        public void LoadLibrary()
         {
-
+            try
+            {
+                string bookDB = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "json\\books.json"));
+                BookDatabase = JsonConvert.DeserializeObject<List<Book>>(bookDB);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
 
-        private Student Login(string username, string password)
+        public Student Login(string username, string password)
         {
             foreach(Student person in StudentDatabase)
             {
@@ -26,7 +35,7 @@ namespace LMS
             return null;
         }
 
-        private void SignUp()
+        public void SignUp()
         {
             string username, password, name;
             uint id;
@@ -44,7 +53,7 @@ namespace LMS
             Console.WriteLine("Welcome. You can now login");
         }
 
-        private Book SearchBook(string title, string author)
+        public Book SearchBook(string title, string author)
         {
             foreach (Book book in BookDatabase)
             {
@@ -56,9 +65,22 @@ namespace LMS
             return null;
         }
 
-        private void SearchOverdueBooks()
+        public string SearchOverdueBooks()
         {
-
+            List<Book> overdueBooks;
+            string overdueBookInfo = "";
+            foreach(Student person in StudentDatabase)
+            {
+                overdueBooks = person.GetOverdueBooks();
+                if (overdueBooks.Count > 0)
+                {
+                    foreach (var book in overdueBooks)
+                    {
+                        overdueBookInfo += string.Format("\n{0} : {1} - {2}", person.GetName(), book.GetTitle(), book.GetDuedate());
+                    }
+                }
+            }
+            return overdueBookInfo.Length > 0 ? overdueBookInfo : "No overdue books"; 
         }
     }
 }
