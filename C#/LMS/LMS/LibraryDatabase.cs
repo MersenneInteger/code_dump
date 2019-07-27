@@ -10,6 +10,9 @@ namespace LMS
         private List<Student> StudentDatabase = new List<Student>();
         private List<Book> BookDatabase = new List<Book>();
 
+        /// <summary>
+        /// load library of books from JSON file
+        /// </summary>
         public void LoadLibrary()
         {
             try
@@ -23,6 +26,12 @@ namespace LMS
             }
         }
 
+        /// <summary>
+        /// Allow a Student to login using username and password
+        /// </summary>
+        /// <param name="username">String</param>
+        /// <param name="password">String</param>
+        /// <returns>Student</returns>
         public Student Login(string username, string password)
         {
             foreach(Student person in StudentDatabase)
@@ -35,6 +44,9 @@ namespace LMS
             return null;
         }
 
+        /// <summary>
+        /// Sign Student up for the library database, register name, id, username and password
+        /// </summary>
         public void SignUp()
         {
             string username, password, name;
@@ -42,10 +54,13 @@ namespace LMS
 
             Console.Write("1) Enter your Name: ");
             name = Console.ReadLine();
+
             Console.Write("2) Enter your student ID: ");
             id = Convert.ToUInt16(Console.ReadLine());
+
             Console.Write("3) Enter your Username: ");
             username = Console.ReadLine();
+
             Console.Write("4) Enter your password: ");
             password = Console.ReadLine();
 
@@ -53,6 +68,12 @@ namespace LMS
             Console.WriteLine("Welcome. You can now login");
         }
 
+        /// <summary>
+        /// Search for book in BookDatabase
+        /// </summary>
+        /// <param name="title">String</param>
+        /// <param name="author">String</param>
+        /// <returns>Book</returns>
         public Book SearchBook(string title, string author)
         {
             foreach (Book book in BookDatabase)
@@ -65,6 +86,10 @@ namespace LMS
             return null;
         }
 
+        /// <summary>
+        /// Search BookDatabase for overdue books, return list of overdue books
+        /// </summary>
+        /// <returns>String</returns>
         public string SearchOverdueBooks()
         {
             List<Book> overdueBooks;

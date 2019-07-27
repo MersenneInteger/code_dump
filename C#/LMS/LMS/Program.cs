@@ -22,10 +22,13 @@ namespace LMS
 
                 //prompt available operations:
                     //prompt return book if books are checked out
+
                     //prompt checkout book if
                         //books available for checkout
                         //student has no unpaid late fees
+
                     //see available books
+
                     //search for a book
 
                 Console.Write("Continue operations? (yes/no) ");

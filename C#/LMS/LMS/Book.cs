@@ -21,21 +21,36 @@ namespace LMS
             this.CheckedOut = CheckedOut;
         }
 
+        /// <summary>
+        /// Return Title of Book
+        /// </summary>
+        /// <returns>String</returns>
         public string GetTitle()
         {
             return Title;
         }
 
+        /// <summary>
+        /// Return Author of Book
+        /// </summary>
+        /// <returns>String</returns>
         public string GetAuthor()
         {
             return Author;
         }
 
+        /// <summary>
+        /// Return DueDate as DateTime object
+        /// </summary>
+        /// <returns>String</returns>
         public string GetDuedate()
         {
             return string.Format("{0}/{1}/{2}", DueDate.Month, DueDate.Day, DueDate.Year);
         }
 
+        /// <summary>
+        /// Checkout book and assign CheckOutdate and DueDate (checkOutDate + 2 weeks)
+        /// </summary>
         public void CheckOutBook()
         {
             CheckedOut = true;
@@ -43,6 +58,9 @@ namespace LMS
             CalculateDueDate(CheckOutDate);
         }
 
+        /// <summary>
+        /// Return book
+        /// </summary>
         public void ReturnBook()
         {
             CheckedOut = false;
@@ -51,16 +69,28 @@ namespace LMS
             
         }
 
+        /// <summary>
+        /// utility function to calculate DueDate
+        /// </summary>
+        /// <param name="checkOutDate">DateTime</param>
         private void CalculateDueDate(DateTime checkOutDate)
         {
             DueDate = checkOutDate.AddDays(CheckoutPeriod);
         }
 
+        /// <summary>
+        /// Return boolean value if Book is currently checked out
+        /// </summary>
+        /// <returns></returns>
         public bool CheckIfBookIsCheckedOut()
         {
             return CheckedOut;
         }
 
+        /// <summary>
+        /// Check if Book is overdue and return boolean value
+        /// </summary>
+        /// <returns>Bool</returns>
         public bool CheckIfBookIsOverdue()
         {
             CurrentDate = DateTime.Today;
@@ -84,6 +114,10 @@ namespace LMS
             return false;
         }
 
+        /// <summary>
+        /// Return information about Book
+        /// </summary>
+        /// <returns></returns>
         public string GetInfo()
         {
             return string.Format("Title: {0}\nAuthor: {1}\nCheckout Date: {2}\nDue: {3}", 
