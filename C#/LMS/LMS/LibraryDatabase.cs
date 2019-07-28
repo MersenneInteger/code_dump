@@ -32,9 +32,15 @@ namespace LMS
         /// <param name="username">String</param>
         /// <param name="password">String</param>
         /// <returns>Student</returns>
-        public Student Login(string username, string password)
+        public Student Login()
         {
-            foreach(Student person in StudentDatabase)
+            string username, password;
+            Console.Write("Enter username: ");
+            username = Console.ReadLine();
+            Console.Write("\nEnter password: ");
+            password = Console.ReadLine();
+
+            foreach (Student person in StudentDatabase)
             {
                 if(person.GetUsername().Equals(username) && person.ComparePasswords(password))
                 {
@@ -47,7 +53,7 @@ namespace LMS
         /// <summary>
         /// Sign Student up for the library database, register name, id, username and password
         /// </summary>
-        public void SignUp()
+        public bool SignUp()
         {
             string username, password, name;
             uint id;
@@ -64,8 +70,18 @@ namespace LMS
             Console.Write("4) Enter your password: ");
             password = Console.ReadLine();
 
+            foreach(Student person in StudentDatabase)
+            {
+                if(person.GetUsername().Equals(username))
+                {
+                    Console.WriteLine("That username is already taken. Please try again with a different username");
+                    return false;
+                }
+            }
+
             StudentDatabase.Add(new Student(username, password, name, id));
             Console.WriteLine("Welcome. You can now login");
+            return true;
         }
 
         /// <summary>

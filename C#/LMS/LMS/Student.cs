@@ -115,6 +115,18 @@ namespace LMS
         }
 
         /// <summary>
+        /// Print list of books currently checked out under student account
+        /// </summary>
+        public void ViewBooksCheckedOut()
+        {
+            foreach(Book book in BooksCheckedOut)
+            {
+                Console.WriteLine("{0} - {1}", book.GetTitle(), book.GetAuthor());
+            }
+        }
+
+
+        /// <summary>
         /// Search for overdue books checked out under Student account, print book info if they exist
         /// </summary>
         public void CheckIfStudentHasBooksOverdue()
@@ -132,6 +144,23 @@ namespace LMS
             }
             if (NumOfBooksOverdue > 0)
                 Console.WriteLine(overdueBooksInfo);
+        }
+
+        /// <summary>
+        /// Return Book object given title of book
+        /// </summary>
+        /// <param name="title">string</param>
+        /// <returns>Book</returns>
+        public Book GetBookByTitle(string title)
+        {
+            foreach(Book book in BooksCheckedOut)
+            {
+                if(book.GetTitle().ToLower().Equals(title.ToLower()))
+                {
+                    return book;
+                }
+            }
+            return null;
         }
     }
 }
