@@ -17,8 +17,12 @@ namespace LMS
         {
             try
             {
-                string bookDB = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "json\\books.json"));
-                BookDatabase = JsonConvert.DeserializeObject<List<Book>>(bookDB);
+                //string bookDB = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "json\\books.json"));
+                //BookDatabase = JsonConvert.DeserializeObject<List<Book>>(bookDB);
+                BookDatabase.Add(new Book("Spring Snow", "Yukio Mishima", false));
+                BookDatabase.Add(new Book("No Longer Human", "Osamu Dazai", false));
+                BookDatabase.Add(new Book("At the Mountains of Madness", "H.P. Lovecraft", false));
+                BookDatabase.Add(new Book("Frankenstein", "Mary Shelly", false));
             }
             catch(Exception e)
             {
@@ -90,11 +94,11 @@ namespace LMS
         /// <param name="title">String</param>
         /// <param name="author">String</param>
         /// <returns>Book</returns>
-        public Book SearchBook(string title, string author)
+        public Book SearchBook(string keyword)
         {
             foreach (Book book in BookDatabase)
             {
-                if (book.GetTitle().Equals(title) && book.GetAuthor().Equals(author))
+                if (book.GetTitle().Equals(keyword))
                 {
                     return book;
                 }

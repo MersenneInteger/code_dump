@@ -155,7 +155,7 @@ namespace LMS
         {
             foreach(Book book in BooksCheckedOut)
             {
-                if(book.GetTitle().ToLower().Equals(title.ToLower()))
+                if (book.GetTitle().ToLower().Equals(title.ToLower()))
                 {
                     return book;
                 }

@@ -139,11 +139,12 @@ namespace LMS
                 {
                     Console.WriteLine("Enter the title of the name of the book you would like to check out");
                     title = Console.ReadLine();
-                    Book book = user.GetBookByTitle(title);
+                    Book book = libraryDB.SearchBook(title);
                     if(book != null)
                     {
                         user.CheckOutBook(book);
                         Console.WriteLine("{0} checked out", book.GetTitle());
+                        continue;
                     }
                     else
                     {
@@ -154,6 +155,7 @@ namespace LMS
                 else if(menuNavValue == 3) //check for overdue books
                 {
                     user.CheckIfStudentHasBooksOverdue();
+                    continue;
                 }
 
                 menuNavValue = 0;
