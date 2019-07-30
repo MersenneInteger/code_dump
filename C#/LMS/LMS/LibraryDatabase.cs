@@ -41,7 +41,7 @@ namespace LMS
             string username, password;
             Console.Write("Enter username: ");
             username = Console.ReadLine();
-            Console.Write("\nEnter password: ");
+            Console.Write("Enter password: ");
             password = Console.ReadLine();
 
             foreach (Student person in StudentDatabase)
@@ -84,7 +84,7 @@ namespace LMS
             }
 
             StudentDatabase.Add(new Student(username, password, name, id));
-            Console.WriteLine("Welcome. You can now login");
+            Console.WriteLine("Welcome. You can now login\n\n");
             return true;
         }
 
@@ -126,6 +126,27 @@ namespace LMS
                 }
             }
             return overdueBookInfo.Length > 0 ? overdueBookInfo : "No overdue books"; 
+        }
+
+        /// <summary>
+        /// return string of all books available for checkout
+        /// </summary>
+        /// <returns>String</returns>
+        public string SearchForAvailableBooks()
+        {
+            string availableBooks = "";
+
+            foreach(Book book in BookDatabase)
+            {
+                if(book.CheckIfBookIsCheckedOut() == false)
+                {
+                    availableBooks += string.Format("\n{0} - {1}", book.GetTitle(), book.GetAuthor());
+                }
+            }
+            if (availableBooks.Length > 0)
+                return availableBooks;
+            else
+                return "No books available to check out at the moment";
         }
     }
 }

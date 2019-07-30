@@ -119,12 +119,17 @@ namespace LMS
         /// </summary>
         public void ViewBooksCheckedOut()
         {
-            foreach(Book book in BooksCheckedOut)
+            if (NumOfBooksCheckedOut >= 0)
             {
-                Console.WriteLine("{0} - {1}", book.GetTitle(), book.GetAuthor());
+                foreach (Book book in BooksCheckedOut)
+                {
+                    Console.WriteLine("{0} - {1}", book.GetTitle(), book.GetAuthor());
+                }
             }
-        }
+            else
+                Console.WriteLine("No books currently checked out");
 
+        }
 
         /// <summary>
         /// Search for overdue books checked out under Student account, print book info if they exist
@@ -144,6 +149,8 @@ namespace LMS
             }
             if (NumOfBooksOverdue > 0)
                 Console.WriteLine(overdueBooksInfo);
+            else
+                Console.WriteLine("No books overdue");
         }
 
         /// <summary>
