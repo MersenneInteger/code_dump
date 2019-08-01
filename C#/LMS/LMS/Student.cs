@@ -7,8 +7,6 @@ namespace LMS
     {
         private string Username;
         private string Password;
-        private string Name;
-        private string Id;
         private uint NumOfBooksCheckedOut = 0;
         private uint NumOfBooksOverdue = 0;
         private List<Book> BooksCheckedOut = new List<Book>();
@@ -16,21 +14,10 @@ namespace LMS
 
         public Student(){}
 
-        public Student(string Username, string Password, string Name, string Id)
+        public Student(string Username, string Password)
         {
             this.Username = Username;
             this.Password = Password;
-            this.Name = Name;
-            this.Id = Id;
-        }
-
-        /// <summary>
-        /// Return Student Name
-        /// </summary>
-        /// <returns>String</returns>
-        public string GetName()
-        {
-            return Name;
         }
 
         /// <summary>
@@ -112,7 +99,7 @@ namespace LMS
                 }
             }
             else
-                Console.WriteLine("No books checked out");
+                Console.WriteLine("No books currently checked out");
         }
 
         /// <summary>
@@ -120,16 +107,16 @@ namespace LMS
         /// </summary>
         public void ViewBooksCheckedOut()
         {
+            Console.WriteLine();
             if (NumOfBooksCheckedOut > 0)
             {
                 foreach (Book book in BooksCheckedOut)
                 {
-                    Console.WriteLine($"{book.GetInfo()}");
+                    Console.WriteLine($"{book.GetInfo()}\n");
                 }
             }
             else
                 Console.WriteLine("No books currently checked out");
-
         }
 
         /// <summary>

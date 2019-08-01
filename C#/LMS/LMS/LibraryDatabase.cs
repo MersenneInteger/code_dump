@@ -22,7 +22,7 @@ namespace LMS
                 BookDatabase.Add(new Book("Spring Snow", "Yukio Mishima", false));
                 BookDatabase.Add(new Book("No Longer Human", "Osamu Dazai", false));
                 BookDatabase.Add(new Book("At the Mountains of Madness", "H.P. Lovecraft", false));
-                BookDatabase.Add(new Book("Frankenstein", "Mary Shelly", false));
+                BookDatabase.Add(new Book("Uzumaki", "Junji Ito", false));
             }
             catch(Exception e)
             {
@@ -59,18 +59,12 @@ namespace LMS
         /// </summary>
         public bool SignUp()
         {
-            string username, password, name, id;
+            string username, password;
 
-            Console.Write("1) Enter your Name: ");
-            name = Console.ReadLine();
-
-            Console.Write("2) Enter your student ID: ");
-            id = Console.ReadLine();
-
-            Console.Write("3) Enter your Username: ");
+            Console.Write("1) Enter your Username: ");
             username = Console.ReadLine();
 
-            Console.Write("4) Enter your password: ");
+            Console.Write("2) Enter your password: ");
             password = Console.ReadLine();
 
             foreach(Student person in StudentDatabase)
@@ -82,7 +76,7 @@ namespace LMS
                 }
             }
 
-            StudentDatabase.Add(new Student(username, password, name, id));
+            StudentDatabase.Add(new Student(username, password));
             Console.WriteLine("Welcome. You can now login\n");
             return true;
         }
@@ -113,14 +107,15 @@ namespace LMS
         {
             List<Book> overdueBooks;
             string overdueBookInfo = "";
-            foreach(Student person in StudentDatabase)
+
+            foreach (Student person in StudentDatabase)
             {
                 overdueBooks = person.GetOverdueBooks();
                 if (overdueBooks.Count > 0)
                 {
                     foreach (var book in overdueBooks)
                     {
-                        overdueBookInfo += string.Format("\n{0} : {1} - {2}", person.GetName(), book.GetTitle(), book.GetDuedate());
+                        overdueBookInfo += string.Format($"\n{book.GetInfo()}");
                     }
                 }
             }

@@ -24,12 +24,11 @@ namespace LMS
 
             while (continueOperations.Equals("yes", StringComparison.OrdinalIgnoreCase))
             {
-                ClearConsole();
-
                 if (!signedIn)
                 {
+                    SeparateOperations();
                     //prompt login or signup
-                    Console.WriteLine("\nWelcome to X library. Please choose one of the following:" +
+                    Console.WriteLine("Welcome to X library. Please choose one of the following:" +
                                     "\n1) Login\n2)Sign Up\n3)Quit");
 
                     try
@@ -53,7 +52,6 @@ namespace LMS
                             else
                             {
                                 Console.WriteLine("Login Successful");
-                                System.Threading.Thread.Sleep(1000);
                                 signedIn = true;
                             }
                             break;
@@ -71,7 +69,6 @@ namespace LMS
                             else
                             {
                                 Console.WriteLine("Login Successful");
-                                System.Threading.Thread.Sleep(1000);
                                 signedIn = true;
                             }
                             break;
@@ -82,7 +79,6 @@ namespace LMS
 
                         default: //input out of range
                             Console.WriteLine("Please enter a valid operation");
-                            menuNavValue = 0;
                             continue;
                     }
 
@@ -92,7 +88,7 @@ namespace LMS
                     }
                 }
 
-                ClearConsole();
+                SeparateOperations();
 
                 //prompt available operations:
                 Console.WriteLine("Choose one of the following: " +
@@ -111,57 +107,60 @@ namespace LMS
                 switch(menuNavValue)
                 {
                     case 1: //return book
+                        if(user.GetNumOfBooksCheckedOut() == 0)
+                        {
+                            Console.WriteLine("\nNo books currently checked out");
+                            continue;
+                        }
+
                         Console.WriteLine("Currently checked out: \n");
                         user.ViewBooksCheckedOut();
                         Console.WriteLine("Enter the title of the name of the book you would like to return");
+
                         title = Console.ReadLine();
+                        SeparateOperations();
                         Book book = user.GetBookByTitle(title);
+
                         if (book != null)
                         {
                             user.ReturnBook(book);
-                            Console.WriteLine("Book returned. Thank you\n");
-                            System.Threading.Thread.Sleep(1000);
+                            Console.WriteLine("\nBook returned. Thank you\n");
                             continue;
                         }
                         else
                         {
-                            Console.WriteLine("That book is not currently checked out under your name");
-                            System.Threading.Thread.Sleep(1000);
+                            Console.WriteLine("\nThat book is not currently checked out under your name");
                             continue;
                         }
 
                     case 2: //check out book
                         Console.WriteLine("Enter the title of the name of the book you would like to check out");
                         title = Console.ReadLine();
+                        SeparateOperations();
                         Book bookToCheckOut = libraryDB.SearchBook(title);
                         if (bookToCheckOut != null)
                         {
                             user.CheckOutBook(bookToCheckOut);
                             Console.WriteLine("{0} checked out", bookToCheckOut.GetTitle());
-                            System.Threading.Thread.Sleep(1000);
                             continue;
                         }
                         else
                         {
-                            Console.WriteLine("Book is currently unavailable");
-                            System.Threading.Thread.Sleep(1000);
+                            Console.WriteLine("\nBook is currently unavailable");
                             continue;
                         }
 
                     case 3:
                         user.CheckIfStudentHasBooksOverdue();
-                        System.Threading.Thread.Sleep(1000);
                         continue;
 
                     case 4: //show books currently checked out
                         user.ViewBooksCheckedOut();
-                        System.Threading.Thread.Sleep(1000);
                         continue;
 
                     case 5: //show books available for check out
                         availableBooks = libraryDB.SearchForAvailableBooks();
                         Console.WriteLine(availableBooks);
-                        System.Threading.Thread.Sleep(5000);
                         continue;
 
                     case 6: //log out
@@ -185,7 +184,6 @@ namespace LMS
                     break;
                 }
 
-                menuNavValue = 0;
                 Console.Write("Continue operations? (yes/no) ");
                 continueOperations = Console.ReadLine();
             }
@@ -207,12 +205,11 @@ namespace LMS
         }
 
         /// <summary>
-        /// Sleep for 1 sec and clear console
+        /// Visual separate operations
         /// </summary>
-        static void ClearConsole()
+        static void SeparateOperations()
         {
-            System.Threading.Thread.Sleep(1000);
-            Console.Clear();
+            Console.WriteLine("-----------------------------------");
         }
     }
 }
