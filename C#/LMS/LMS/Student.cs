@@ -8,7 +8,7 @@ namespace LMS
         private string Username;
         private string Password;
         private string Name;
-        private uint Id;
+        private string Id;
         private uint NumOfBooksCheckedOut = 0;
         private uint NumOfBooksOverdue = 0;
         private List<Book> BooksCheckedOut = new List<Book>();
@@ -16,7 +16,7 @@ namespace LMS
 
         public Student(){}
 
-        public Student(string Username, string Password, string Name, uint Id)
+        public Student(string Username, string Password, string Name, string Id)
         {
             this.Username = Username;
             this.Password = Password;
@@ -103,6 +103,7 @@ namespace LMS
             {
                 NumOfBooksCheckedOut--;
                 BooksCheckedOut.Remove(book);
+                book.ReturnBook();
 
                 if(OverdueBooks.Contains(book))
                 {
@@ -119,11 +120,11 @@ namespace LMS
         /// </summary>
         public void ViewBooksCheckedOut()
         {
-            if (NumOfBooksCheckedOut >= 0)
+            if (NumOfBooksCheckedOut > 0)
             {
                 foreach (Book book in BooksCheckedOut)
                 {
-                    Console.WriteLine("{0} - {1}", book.GetTitle(), book.GetAuthor());
+                    Console.WriteLine($"{book.GetInfo()}");
                 }
             }
             else

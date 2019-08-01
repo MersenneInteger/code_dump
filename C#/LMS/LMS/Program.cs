@@ -53,7 +53,7 @@ namespace LMS
                             else
                             {
                                 Console.WriteLine("Login Successful");
-                                System.Threading.Thread.Sleep(100);
+                                System.Threading.Thread.Sleep(1000);
                                 signedIn = true;
                             }
                             break;
@@ -71,7 +71,7 @@ namespace LMS
                             else
                             {
                                 Console.WriteLine("Login Successful");
-                                System.Threading.Thread.Sleep(100);
+                                System.Threading.Thread.Sleep(1000);
                                 signedIn = true;
                             }
                             break;
@@ -120,13 +120,13 @@ namespace LMS
                         {
                             user.ReturnBook(book);
                             Console.WriteLine("Book returned. Thank you\n");
-                            System.Threading.Thread.Sleep(100);
+                            System.Threading.Thread.Sleep(1000);
                             continue;
                         }
                         else
                         {
                             Console.WriteLine("That book is not currently checked out under your name");
-                            System.Threading.Thread.Sleep(100);
+                            System.Threading.Thread.Sleep(1000);
                             continue;
                         }
 
@@ -138,30 +138,30 @@ namespace LMS
                         {
                             user.CheckOutBook(bookToCheckOut);
                             Console.WriteLine("{0} checked out", bookToCheckOut.GetTitle());
-                            System.Threading.Thread.Sleep(100);
+                            System.Threading.Thread.Sleep(1000);
                             continue;
                         }
                         else
                         {
                             Console.WriteLine("Book is currently unavailable");
-                            System.Threading.Thread.Sleep(100);
+                            System.Threading.Thread.Sleep(1000);
                             continue;
                         }
 
                     case 3:
                         user.CheckIfStudentHasBooksOverdue();
-                        System.Threading.Thread.Sleep(100);
+                        System.Threading.Thread.Sleep(1000);
                         continue;
 
                     case 4: //show books currently checked out
                         user.ViewBooksCheckedOut();
-                        System.Threading.Thread.Sleep(100);
+                        System.Threading.Thread.Sleep(1000);
                         continue;
 
                     case 5: //show books available for check out
                         availableBooks = libraryDB.SearchForAvailableBooks();
                         Console.WriteLine(availableBooks);
-                        System.Threading.Thread.Sleep(500);
+                        System.Threading.Thread.Sleep(5000);
                         continue;
 
                     case 6: //log out
@@ -211,7 +211,7 @@ namespace LMS
         /// </summary>
         static void ClearConsole()
         {
-            System.Threading.Thread.Sleep(100);
+            System.Threading.Thread.Sleep(1000);
             Console.Clear();
         }
     }

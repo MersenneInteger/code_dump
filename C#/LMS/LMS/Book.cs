@@ -66,7 +66,6 @@ namespace LMS
             CheckedOut = false;
             CheckOutDate = DateTime.MinValue;
             DueDate = DateTime.MinValue;
-            
         }
 
         /// <summary>
@@ -94,7 +93,7 @@ namespace LMS
         public bool CheckIfBookIsOverdue()
         {
             CurrentDate = DateTime.Today;
-            Console.WriteLine("{0}/{1}", CurrentDate.Day, CurrentDate.Month);
+            //Console.WriteLine("Today: {0}/{1}", CurrentDate.Month, CurrentDate.Day);
 
             if(CurrentDate.Day == DueDate.Day && CurrentDate.Month == DueDate.Month)
             {

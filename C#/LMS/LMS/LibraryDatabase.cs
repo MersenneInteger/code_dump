@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace LMS
 {
-    internal class LibraryDatabase
+    internal sealed class LibraryDatabase
     {
         private List<Student> StudentDatabase = new List<Student>();
         private List<Book> BookDatabase = new List<Book>();
@@ -59,14 +59,13 @@ namespace LMS
         /// </summary>
         public bool SignUp()
         {
-            string username, password, name;
-            uint id;
+            string username, password, name, id;
 
             Console.Write("1) Enter your Name: ");
             name = Console.ReadLine();
 
             Console.Write("2) Enter your student ID: ");
-            id = Convert.ToUInt16(Console.ReadLine());
+            id = Console.ReadLine();
 
             Console.Write("3) Enter your Username: ");
             username = Console.ReadLine();
@@ -84,7 +83,7 @@ namespace LMS
             }
 
             StudentDatabase.Add(new Student(username, password, name, id));
-            Console.WriteLine("Welcome. You can now login\n\n");
+            Console.WriteLine("Welcome. You can now login\n");
             return true;
         }
 
