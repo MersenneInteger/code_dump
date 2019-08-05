@@ -1,16 +1,22 @@
-[{
-  "BookDatabase": {
-    "Book1": [
-      {
-        "Title": "Spring Snow",
-        "Author": "Yukio Mishima"
-      }
-    ],
-    "Book2": [
-      {
-        "Title": "No Longer Human",
-        "Author": "Osamu Dazai"
-      }
-    ]
+[
+  {
+    "title": "Spring Snow",
+    "Author": "Yukio Mishima"
+  },
+  {
+    "title": "No Longer Human",
+    "Author": "Osamu Dazai"
+  },
+  {
+    "title": "At the Mountains of Madness",
+    "Author": "H.P. Lovecraft"
+  },
+  {
+    "title": "Uzumaki",
+    "Author": "Junji Ito"
+  },
+  {
+    "title": "White Noise",
+    "Author": "Dan DeLillo"
   }
-}]
+]

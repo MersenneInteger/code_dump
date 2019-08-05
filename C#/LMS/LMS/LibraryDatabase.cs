@@ -17,12 +17,13 @@ namespace LMS
         {
             try
             {
-                //string bookDB = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "json\\books.json"));
-                //BookDatabase = JsonConvert.DeserializeObject<List<Book>>(bookDB);
-                BookDatabase.Add(new Book("Spring Snow", "Yukio Mishima", false));
-                BookDatabase.Add(new Book("No Longer Human", "Osamu Dazai", false));
-                BookDatabase.Add(new Book("At the Mountains of Madness", "H.P. Lovecraft", false));
-                BookDatabase.Add(new Book("Uzumaki", "Junji Ito", false));
+                List<BookBuild> bookBuild;
+                
+                string bookDB = File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "json\\books.json"));
+                bookBuild = JsonConvert.DeserializeObject<List<BookBuild>>(bookDB);
+
+                foreach(BookBuild book in bookBuild)
+                    BookDatabase.Add(new Book(book.Title, book.Author, false));
             }
             catch(Exception e)
             {
