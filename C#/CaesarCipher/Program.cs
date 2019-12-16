@@ -9,7 +9,7 @@ namespace CaesarCipher
         static void Main(string[] args)
         {
             string continueResp = "yes";
-            string filepath = "";
+            string filepath;
             while(continueResp.Equals("yes", StringComparison.OrdinalIgnoreCase))
             {
                 Console.WriteLine("Select an operation:\n1)Encypt\n2)Decrypt\n3)Quit");
@@ -21,37 +21,52 @@ namespace CaesarCipher
 
                         Console.WriteLine("Enter the filepath of the file: ");
                         filepath = Console.ReadLine();
-                        Console.WriteLine("Encrypting file...");
-                        if (File.Exists(filepath))
+                        try
                         {
-                            var msgToEncrypt = File.ReadAllText(filepath);
-                            var encryptedMsg = Encrypt(msgToEncrypt);
-                            var encryptedFile = filepath.Replace(".txt", "Encrypted.txt");
-                            File.WriteAllText(encryptedFile, encryptedMsg);
-                            Console.WriteLine(encryptedMsg);
+                            if (File.Exists(filepath))
+                            {
+                                Console.WriteLine("Encrypting file...");
+                                var msgToEncrypt = File.ReadAllText(filepath);
+                                var encryptedMsg = CaesarCipher.Encrypt(msgToEncrypt);
+                                var encryptedFile = filepath.Replace(".txt", "Encrypted.txt");
+                                File.WriteAllText(encryptedFile, encryptedMsg);
+                                Console.WriteLine(encryptedMsg);
+                            }
+                            else
+                            {
+                                Console.WriteLine("File does not exist. Try again");
+                            }
                         }
-                        else
+                        catch(Exception e)
                         {
-                            Console.WriteLine("File does not exist. Try again");
+                            Console.WriteLine(e.Message);
+                            continue;
                         }
                         break;
                     case (int)Operations.Decrypt:
 
                         Console.WriteLine("Enter the filepath of the file: ");
                         filepath = Console.ReadLine();
-                        Console.WriteLine("Decrypting file...");
-                        //open file
-                        if (File.Exists(filepath))
+                        try
                         {
-                            var msgToDecrypt = File.ReadAllText(filepath);
-                            var decryptedMsg = Decrypt(msgToDecrypt);
-                            var decryptedFile = filepath.Replace(".txt", "Decrypted.txt");
-                            File.WriteAllText(decryptedFile, decryptedMsg);
-                            Console.WriteLine(decryptedMsg);
+                            if (File.Exists(filepath))
+                            {
+                                Console.WriteLine("Decrypting file...");
+                                var msgToDecrypt = File.ReadAllText(filepath);
+                                var decryptedMsg = CaesarCipher.Decrypt(msgToDecrypt);
+                                var decryptedFile = filepath.Replace(".txt", "Decrypted.txt");
+                                File.WriteAllText(decryptedFile, decryptedMsg);
+                                Console.WriteLine(decryptedMsg);
+                            }
+                            else
+                            {
+                                Console.WriteLine("File does not exist. Try again");
+                            }
                         }
-                        else
+                        catch (Exception e)
                         {
-                            Console.WriteLine("File does not exist. Try again");
+                            Console.WriteLine(e.Message);
+                            continue;
                         }
                         break;
                     case (int)Operations.Quit:
@@ -67,34 +82,9 @@ namespace CaesarCipher
             }
         }
 
-        public static string Encrypt(string plainText)
-        {
-            string encryptedMsg = "";
-            int[] cipherText = new int[plainText.Length];
-            char[] chars = plainText.ToCharArray();
-            for(var i = 0; i < plainText.Length; i++)
-            {
-                cipherText[i] =  chars[i] + 5;
-                encryptedMsg += (char)cipherText[i];
-            }
-            return encryptedMsg;
-        }
-
-        public static string Decrypt(string cipherText)
-        {
-            string decryptedMsg = "";
-            int[] plainText = new int[cipherText.Length];
-            char[] chars = cipherText.ToCharArray();
-            for (var i = 0; i < plainText.Length; i++)
-            {
-                plainText[i] = chars[i] - 5;
-                decryptedMsg += (char)plainText[i];
-            }
-            return decryptedMsg;
-        }
         enum Operations
         {
             Encrypt = 1, Decrypt, Quit
-        };
+        }
     }
 }
